@@ -18,21 +18,12 @@ export class ShoppingListService {
   }
 
   addIngredient(ingredient: Ingredient) {
-    const found: Ingredient = this.ingredients.find(
-      (element: Ingredient) => element.name === ingredient.name
-    );
+    this.ingredients.push(ingredient);
+    this.ingredientsChanged.emit(this.ingredients.slice());
+  }
 
-    let totalAm = Number(ingredient.amount);
-
-    if (found) {
-      totalAm = Number(found.amount) + Number(ingredient.amount);
-      const index = this.ingredients.findIndex(
-        (element: Ingredient) => element.name === ingredient.name
-      );
-      this.ingredients.splice(index, 1);
-    }
-
-    this.ingredients.push({ name: ingredient.name, amount: totalAm });
+  addIngredients(ingredient: Ingredient[]) {
+    this.ingredients.push(...ingredient);
     this.ingredientsChanged.emit(this.ingredients.slice());
   }
 
