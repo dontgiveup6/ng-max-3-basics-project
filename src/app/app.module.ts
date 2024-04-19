@@ -13,6 +13,9 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './shopping-list/shopping-edit/app-routing.module';
 import { RecipesStartComponent } from './recipes/recipes-start/recipes-start.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { RecipeNotExistComponent } from './recipe-not-exist/recipe-not-exist.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { RecipesStartComponent } from './recipes/recipes-start/recipes-start.com
     ShoppingEditComponent,
     DropdownDirective,
     RecipesStartComponent,
+    RecipeEditComponent,
+    ErrorPageComponent,
+    RecipeNotExistComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,12 +16,23 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private recipeService: RecipeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.recipeParams = this.route.params.subscribe((params: Params) => {
       this.recipe = this.recipeService.getRecipe(+params['id'] - 1);
+
+      if (!this.recipe) {
+        this.router.navigate(['/recipes', +params['id'], 'not-exist']);
+        this.recipe = {
+          name: '',
+          description: '',
+          imagePath: '',
+          ingredients: [],
+        };
+      }
     });
   }
 
