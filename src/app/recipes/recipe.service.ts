@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Params, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,25 @@ export class RecipeService {
     ),
   ];
 
-  constructor(private shoppingListService: ShoppingListService) {}
+  constructor(
+    private shoppingListService: ShoppingListService,
+    private router: Router
+  ) {}
+
+  checkForRecipe(params: Params) {
+    let recipe = this.getRecipe(+params['id'] - 1);
+
+    if (!recipe) {
+      this.router.navigate(['/recipes', +params['id'], 'not-exist']);
+      recipe = {
+        name: '',
+        description: '',
+        imagePath: '',
+        ingredients: [],
+      };
+    }
+    return recipe;
+  }
 
   getRecipes() {
     return this.recipes.slice();
